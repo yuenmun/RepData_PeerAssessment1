@@ -7,8 +7,8 @@ output: html_document
   
 
 **Loading the data & transform**  
-1. Firstly, data is loaded and saved into data drame called **activity**  
-2. Convert the date column as date   
+- Firstly, data is loaded and saved into data drame called **activity**  
+- Convert the date column as date   
 
 
 ```r
@@ -21,10 +21,10 @@ activity$date <- as.Date(activity$date, format = "%Y-%m-%d")
   
 **What is mean total number of steps taken per day?**  
 
-1. Load **dplyr** package  
-2. Removed all rows containing NA values in steps column   
-3. Arrange by date column  
-4. Summarise by total steps  
+- Load **dplyr** package  
+- Removed all rows containing NA values in steps column   
+- Arrange by date column  
+- Summarise by total steps  
 
 
 ```r
@@ -36,7 +36,7 @@ totalstep <-
     summarise(total = sum(steps))
 ```
   
-5. Plotting the histogram of total steps taken per day with ggplot2
+- Plotting the histogram of total steps taken per day with ggplot2
 
 ```r
 suppressMessages(library(ggplot2))
@@ -46,7 +46,7 @@ ggplot(totalstep, aes(x=total)) +
 
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png) 
 
-6. Calculating the mean  
+- Calculating the mean  
 
 
 ```r
@@ -57,7 +57,7 @@ ggplot(totalstep, aes(x=total)) +
 ## [1] 10766.19
 ```
   
-7. Calculating the median  
+- Calculating the median  
 
 ```r
   median(totalstep$total)
@@ -69,7 +69,7 @@ ggplot(totalstep, aes(x=total)) +
 
 **What is the average daily activity pattern?**  
 
-1. Group by internval and calculate mean of steps per interval  
+- Group by internval and calculate mean of steps per interval  
 
 
 ```r
@@ -78,7 +78,7 @@ daily <- activity %>%
     summarise(avg_steps = mean(steps, na.rm = T))
 ```
   
-2. Plot of time series chart for average steps per 5 minute interval  
+- Plot of time series chart for average steps per 5 minute interval  
 
 
 ```r
@@ -89,7 +89,7 @@ ggplot(daily, aes(x = interval, y = avg_steps)) +
 
 ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
   
-3. Extract the row of data containing maximum number of average steps.  
+- Extract the row of data containing maximum number of average steps.  
 
 
 ```r
@@ -108,7 +108,7 @@ daily[which.max(daily$avg_steps), ]
 *The impute strategy to be employed is to fill in NA values  
 with mean values per interval*
 
-1. Calculating the total number of NA within dataset
+- Calculating the total number of NA within dataset
 
 
 ```r
@@ -119,9 +119,9 @@ sum(is.na(activity))
 ## [1] 2304
 ```
   
-2. Combine both activity data frame and daily data frame together  
-3. Replace NA values with corresponding average steps value  
-4. Subset the steps, date and interval columns  
+- Combine both activity data frame and daily data frame together  
+- Replace NA values with corresponding average steps value  
+- Subset the steps, date and interval columns  
 
 
 ```r
@@ -133,7 +133,7 @@ activity_alldata <- select(merge_data, steps, date, interval)
 activity_replacedNA <- activity_alldata
 ```
   
-5. Plot original data and all data(with replaced NA) for comparison  
+- Plot original data and all data(with replaced NA) for comparison  
 
 
 ```r
@@ -161,7 +161,7 @@ grid.arrange(fig1, fig2, ncol=2)
 
 ![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png) 
   
-6. Calculating the mean and median  
+- Calculating the mean and median  
 
 
 ```r
@@ -193,10 +193,10 @@ However the median is slightly higher in the replaced NA values case
 *The dataset used here is dataset containing imputed NA values*  
 
 
-1. Firstly, create a new column call daytype  
-2. Reclass daytype as weekday or weekend  
-3. Subset data containing only weekday and saved as data frame named days_weekday  
-4. Subset data containing only weekend and saved as data drame anmed days_weekend
+- Firstly, create a new column call daytype  
+- Reclass daytype as weekday or weekend  
+- Subset data containing only weekday and saved as data frame named days_weekday  
+- Subset data containing only weekend and saved as data drame anmed days_weekend
   
 
 ```r
@@ -217,8 +217,8 @@ days_weekday <- subset(daysData, daytype == "Weekday")
 days_weekend <- subset(daysData, daytype == "Weekend")
 ```
   
-5. Group and summarise the data frame by interval  
-6. Plot both the weekday and weekend data for comparison
+- Group and summarise the data frame by interval  
+- Plot both the weekday and weekend data for comparison
 
 
 ```r
